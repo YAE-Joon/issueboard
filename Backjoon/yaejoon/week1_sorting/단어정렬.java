@@ -1,4 +1,4 @@
 package Backjoon.yaejoon.week1_sorting;
 
-public class question1 {
+public class 단어정렬 {
 }
