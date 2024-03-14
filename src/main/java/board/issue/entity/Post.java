@@ -1,16 +1,13 @@
 package board.issue.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-public class Posts {
+public class Post {
 
 
     @Id
@@ -21,7 +18,9 @@ public class Posts {
 
     private String body;
 
-    private Long user_id;
+    @ManyToOne
+    @JoinColumn(name ="post_id")
+    private Users users;
 
     private Long issue;
 

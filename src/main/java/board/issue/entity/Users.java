@@ -1,15 +1,16 @@
 package board.issue.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@Table(name = "users")
 public class Users {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +20,9 @@ public class Users {
 
     private String nickName;
 
-    private String passward;
+    private String password;
 
-    private Long created_post_id;
+    @OneToMany(mappedBy ="users")
+    private List<Post> postList = new ArrayList<>();
 
 }
