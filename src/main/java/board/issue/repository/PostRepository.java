@@ -22,15 +22,15 @@ public class PostRepository {
     }
 
     public Post save(Post post) {
-        String sql = "insert into post (title,body,issue,comment_id) values (?,?,?,?)";
+        String sql = "insert into post (title,body,issue,user_id) values (?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         template.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
+            PreparedStatement ps = connection.prepareStatement(sql, new String[]{"post_id"});
             ps.setString(1, post.getTitle());
             ps.setString(2, post.getBody());
-            ps.setLong(4, post.getIssue());
-            ps.setLong(5, post.getComment_id());
+            ps.setLong(3, post.getIssue());
+            ps.setLong(4, post.getUsers().getId());
             return ps;
         }, keyHolder);
         Long key = keyHolder.getKey().longValue();
@@ -39,7 +39,7 @@ public class PostRepository {
     }
 
     public void update(Long postId,Post post){
-        String sql = "update post set title =?, body =? where id = ? ";
+        String sql = "update post set title =?, body =? where post_id = ? ";
 
         template.update(sql,
                 post.getTitle(),
@@ -53,8 +53,7 @@ public class PostRepository {
     }
 
     public Optional<Post> findByPostId(Long postId){
-        String sql = "select title, body, user_id, issue, comment_id from post where post_id =?";
-
+        String sql = "select post_id, title, body, user_id, issue, comment_id from post where post_id = ?";
         try{
             Post post = template.queryForObject(sql,postRowMapper(),postId);
             return Optional.of(post);
