@@ -14,7 +14,7 @@ public class savedComments {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long savedComments_id;
+    private Long savedCommentsId;
     private String savedContent;
     private Long userId;
 

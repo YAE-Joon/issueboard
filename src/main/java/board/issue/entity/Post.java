@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
@@ -26,7 +28,10 @@ public class Post {
     @Column
     private Long issue =0L;
 
-    private Long comment_id;
+    private Long commentId;
+
+
+    private LocalDateTime createdAt;
 
 
 }

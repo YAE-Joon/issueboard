@@ -3,6 +3,8 @@ package board.issue.service;
 import board.issue.entity.Post;
 import board.issue.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +44,11 @@ public class PostService {
     }
 
     public void delete(Long postId){
+        postRepository.delete(postId);
+    }
+
+
+    public void autoDelete(Long postId){
         postRepository.delete(postId);
     }
 }

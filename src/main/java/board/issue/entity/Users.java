@@ -1,6 +1,7 @@
 package board.issue.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,11 +18,15 @@ public class Users {
     private Long id;
 
     @Column(name="user_id")
+    @NotEmpty
     private String userId;
 
+    @NotEmpty
     private String nickName;
 
+    @NotEmpty
     private String password;
+
 
     @OneToMany(mappedBy ="users")
     private List<Post> postList = new ArrayList<>();

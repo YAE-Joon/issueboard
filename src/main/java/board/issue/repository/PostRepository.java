@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -22,7 +23,7 @@ public class PostRepository {
     }
 
     public Post save(Post post) {
-        String sql = "insert into post (title,body,issue,user_id) values (?,?,?,?)";
+        String sql = "insert into post (title,body,issue,id) values (?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         template.update(connection -> {
@@ -53,7 +54,7 @@ public class PostRepository {
     }
 
     public Optional<Post> findByPostId(Long postId){
-        String sql = "select post_id, title, body, user_id, issue, comment_id from post where post_id = ?";
+        String sql = "select post_id, title, body, id, issue, comment_id from post where post_id = ?";
         try{
             Post post = template.queryForObject(sql,postRowMapper(),postId);
             return Optional.of(post);
@@ -62,6 +63,12 @@ public class PostRepository {
         }
     }
 
+    public Long findPostTop10ByIssue(){
+        String sql = "SELECT MIN(subquery.issue) FROM (SELECT issue FROM post ORDER BY issue DESC LIMIT 10) AS subquery";
+        return template.queryForObject(sql,Long.class);
+    }
+
+
     private RowMapper<Post> postRowMapper() {
         return(rs, rowNum) -> {
             Post post = new Post();
@@ -69,7 +76,7 @@ public class PostRepository {
             post.setTitle(rs.getString("title"));
             post.setBody(rs.getString("body"));
             post.setIssue(rs.getLong("issue"));
-            post.setComment_id(rs.getLong("comment_id"));
+            post.setCommentId(rs.getLong("comment_id"));
             return post;
 
         };
