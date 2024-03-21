@@ -10,14 +10,14 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
   <div class="container px-4 px-lg-5">
-    <a class="navbar-brand" href="index.html">오늘의 이슈</a>
+    <a class="navbar-brand" href="home">오늘의 이슈</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       Menu
       <i class="fas fa-bars"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ms-auto py-4 py-lg-0">
-        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="home">Home</a></li>
         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="myboard">내 게시글</a></li>
         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="login">로그인</a></li>
       </ul>
@@ -37,3 +37,58 @@
     </div>
   </div>
 </header>
+
+
+<div class="container">
+  <div> <h2>로그인</h2>
+  </div>
+  <form action="" th:action th:object="${usersDTO}" method="post">
+    <div th:if="${#fields.hasGlobalErrors()}">
+      <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+         th:text="${err}">전체 오류 메시지</p> </div>
+    <div>
+      <label for="userId">로그인 ID</label>
+      <input type="text" id="userId" th:field="*{userId}" class="form-control"
+             th:errorclass="field-error">
+      <div class="field-error" th:errors="*{userId}" />
+    </div> <div>
+    <label for="password">비밀번호</label>
+    <input type="password" id="password" th:field="*{password}"
+           class="form-control"
+           th:errorclass="field-error">
+    <div class="field-error" th:errors="*{password}" />
+  </div>
+    <hr class="my-4">
+    <div class="row">
+      <div class="col">
+        <button class="w-100 btn btn-primary btn-lg" type="submit">로그인</button>
+      </div>
+      <div class="col">
+        <button class="w-100 btn btn-secondary btn-lg"
+                onclick="location.href='home.html'"
+                th:onclick="|location.href='@{/addUser}'|"
+                type="button">회원가입</button>
+      </div>
+      <div class="col">
+        <button class="w-100 btn btn-secondary btn-lg"
+                onclick="location.href='home.html'"
+                th:onclick="|location.href='@{/}'|"
+                type="button">취소</button>
+      </div>
+    </div>
+  </form>
+</div> <!-- /container -->
+<footer class="border-top">
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+
+        <div class="small text-center text-muted fst-italic">
+          <img src="assets/img/joon.png" alt="img" width ="50" height="50">
+          <a href="https://github.com/YAE-Joon">Joon</a></div>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
